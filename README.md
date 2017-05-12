@@ -1,7 +1,6 @@
 # movement-classification-via-CNN-LSTM
 Classification of body movement (from UCI database) by neural networks, building upon other classification networks and introducing an optimizing, convolutional neural network that significantly increased accuracy.
 
-
 Originally run on:
 Ubuntu 14.04 LTS 
 
@@ -16,6 +15,8 @@ Matplotlib 1.3.1
 
 Optimization:
 CUDA toolkit 8.0 and CuDNN v5
+
+Running code "as is": Run "python edit.py"
 
 https://www.cs.hmc.edu/~hyou/
 
