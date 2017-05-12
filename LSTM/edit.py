@@ -109,7 +109,7 @@ n_classes = 6 # Total classes (should go up, or should go down)
 
 # Training
 
-learning_rate = 0.0005
+learning_rate = 0.0025
 lambda_loss_amount = 0.0015
 training_iters = training_data_count * 300  # Loop 300 times on the dataset
 batch_size = 1500
@@ -213,45 +213,35 @@ def LSTM_RNN(_X, _weights, _biases):
     _X = tf.split(0, n_steps, _X)
     # new shape: n_steps * (batch_size, n_hidden)
 
+    input_layer = tf.reshape(_X, [128, 1500, 4, 1])
+    input_layer = _X
+    input_layer = tf.reshape(_X, [4])
 
-    # --
-
-    """ new """
-    #ValueError: Shape must be rank 4 but is rank 3 for Conv2D with input shapes [128, ?, 32], []
-    #increase rank from 3 to 4????
-
-    #input_layer = tf.reshape(_X, [128, 1500, 4, 1])
-    #input_layer = _X
-    #input_layer = tf.reshape(_X, [4]) --TODO
-
-    # CNN #1
-    #conv_1 = tf.nn.conv2d(input = input_layer, filter = 32, strides=[1, 2, 2, 1], padding = "SAME") --TODO
+    #CNN #1
+    conv_1 = tf.nn.conv2d(input = input_layer, filter = 32, strides=[1, 2, 2, 1], padding = "SAME")
 
     # Pooling Layer #1
-    #pool1 = tf.nn.max_pooling2d(input=conv1, pool_size=[2, 2], strides=2) --TODO
+    pool1 = tf.nn.max_pooling2d(input=conv1, pool_size=[2, 2], strides=2)
 
     # Convolutional Layer #2 and Pooling Layer #2
-    # conv2 = tf.layers.conv2d(
-    #     inputs=pool1,
-    #     filters=64,
-    #     kernel_size=[5, 5],
-    #     padding="same",
-    #     activation=tf.nn.relu)
+    conv2 = tf.layers.conv2d(
+         inputs=pool1,
+         filters=64,
+         kernel_size=[5, 5],
+         padding="same",
+         activation=tf.nn.relu)
 
     # Pooling Layer #2
-    # pool2 = tf.layers.max_pooling2d(inputs=conv2, pool_size=[2, 2], strides=2)
+    pool2 = tf.layers.max_pooling2d(inputs=conv2, pool_size=[2, 2], strides=2)
 
     # Dense Layer
-    # pool2_flat = tf.reshape(pool2, [-1, 7 * 7 * 64])
-    # dense = tf.nn.dense(inputs=pool2_flat, units=1024, activation=tf.nn.relu)
-    # dropout = tf.nn.dropout(
-    #     inputs=dense, rate=0.4, training=mode == learn.ModeKeys.TRAIN)
+    pool2_flat = tf.reshape(pool2, [-1, 7 * 7 * 64])
+    dense = tf.nn.dense(inputs=pool2_flat, units=1024, activation=tf.nn.relu)
+    dropout = tf.nn.dropout(
+         inputs=dense, rate=0.4, training=mode == learn.ModeKeys.TRAIN)
 
     # Logits Layer
-    # logits = tf.nn.dense(inputs=dropout, units=10)
-
-    """ new """
-
+    logits = tf.nn.dense(inputs=dropout, units=10)
 
     # Define two stacked LSTM cells (two recurrent layers deep) with tensorflow
     lstm_cell_1 = tf.nn.rnn_cell.BasicLSTMCell(n_hidden, forget_bias=1.0, state_is_tuple=True)
@@ -328,7 +318,7 @@ sess = tf.InteractiveSession(config=tf.ConfigProto(log_device_placement=True))
 init = tf.initialize_all_variables()
 sess.run(init)
 
-# In each loop, perform training steps with "batch_size" amount of given data 
+# In each loop, perform training steps with "batch_size" amount of given data
 step = 1
 while step * batch_size <= training_iters:
     batch_xs =         extract_batch_size(X_train, step, batch_size)
