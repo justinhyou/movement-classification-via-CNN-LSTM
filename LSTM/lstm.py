@@ -1,7 +1,3 @@
-
-# Thanks to Zhao Yu for converting the .ipynb notebook to
-# this simplified Python script that I edited a little.
-
 # Note that the dataset must be already downloaded for this script to work, do:
 #     $ cd data/
 #     $ python download_dataset.py
@@ -13,9 +9,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 from sklearn import metrics
 import sklearn
-
 import os
-
 
 # Load "X" (the neural network's training and testing inputs)
 
@@ -33,7 +27,6 @@ def load_X(X_signals_paths):
         file.close()
 
     return np.transpose(np.array(X_signals), (1, 2, 0))
-
 
 # Load "y" (the neural network's training and testing outputs)
 
