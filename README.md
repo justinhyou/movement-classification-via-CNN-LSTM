@@ -4,16 +4,22 @@ Classification of body movement (from UCI database) by neural networks, building
 Originally run on:
 Ubuntu 14.04 LTS 
 
-Dependencies:
 Program specifics:
+
 Python 2.7.6 GCC 4.8.4
+
 Tensorflow 0.12.1
+
 Numpy 1.110
+
 Scipy 0.13.3
+
 Sci-kit learn 0.18.1
+
 Matplotlib 1.3.1
 
 Optimization:
+
 CUDA toolkit 8.0 and CuDNN v5
 
 Running code "as is": Run "python edit.py"
@@ -28,4 +34,4 @@ Using primitive data measurements via two instruments on a phone (accelerometer 
 
 Future applications of this research include applying abstraction of neural networks in Body Machine Interfaces (BMI), thereby providing a mechanism for quick adaptation and specialized training and learning for a specific individual. This is especially significant, given the brain is polymorphic: electroencephalogram (EEG) data or more specifically for medical application, deep electrode recordings, collected for two individuals completing the same physical task is significantly different even over just the standardized motor cortex. This is especially true for those born without limbs or those who have lost limbs. Due to the brain's neuroplasticity, motor cortex areas form and reform, respectively, such that body movement and the corresponding subsection of the cortex cannot be easily predicted or generalized. To overcome the issue in the medical context, such a neural network with applied abstraction can shorten the difficult training period and arduous physical therapy, decreasing costs for the life-enhancing procedure while delivering a more accurate physical exhibition of mental intent.
 
-For questions, please contact (Justin) Hyobin You at hy002014@mymail.pomona.edu.
+For questions, please contact (Justin) Hyobin You at hyobinyou@gmail.com.
